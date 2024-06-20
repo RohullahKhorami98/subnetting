@@ -22,6 +22,7 @@ public:
     std::vector<std::string> getSubnetBinary();
     std::vector<std::string> getNetworkBinary();
     void printVector(std::vector<std::string> vectorArray, std::string message);
+    int getNumberOfbits();
 };
 
 #endif // CLASSC_H

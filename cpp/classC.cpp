@@ -5,6 +5,8 @@
 #include "classC.h"
 #include <bitset>
 #include <limits>
+#include <math.h>
+#include <cmath>
 using namespace std;
 
 subnetClassC::subnetClassC(std::string subnet, std::string network, int numberOfHosts) {
@@ -12,7 +14,10 @@ subnetClassC::subnetClassC(std::string subnet, std::string network, int numberOf
     this->network = network;
     this->numberOfHosts = numberOfHosts;
 }
-
+/**
+ * Split the input string into a vector of integers and convert them to binary
+ * and put them in a 2D vector
+ */
 std::vector<std::string> subnetClassC::splitInput(std::string textToSplit){
     std::vector<int> splitedInput; 
     std::vector<std::string> binary;
@@ -28,6 +33,10 @@ std::vector<std::string> subnetClassC::splitInput(std::string textToSplit){
     }
     return binary;
 }
+/**
+ * Convert the subnet and network to binary and put them in a 2D vector
+ * and change the last element to 00000000
+ */
 std::vector<std::vector<std::string>> subnetClassC::toBinary(){
     std::string subnet = this->subnet;
     std::string network = this->network;
@@ -41,12 +50,17 @@ std::vector<std::vector<std::string>> subnetClassC::toBinary(){
 
     return binary;
 }
-
+/**
+ * Get the subnet in binary from the 2D vector
+ */
 std::vector<std::string> subnetClassC::getSubnetBinary() {
     std::vector <std::string> subnet = toBinary()[1];
     return subnet;
 }
 
+/**
+ * Get the network in binary from the 2D vector
+ */
 std::vector<std::string> subnetClassC::getNetworkBinary() {
     std::vector <std::string> network = toBinary()[0];
     return network;
@@ -58,4 +72,17 @@ void subnetClassC::printVector(std::vector<std::string> vectorArray, std::string
         std::cout << vectorArray[i]<< " ";
     }
     std::cout << std::endl;
+}
+
+/**
+ * Get the number of bits using 2 ^ x = number of subnets in class C
+ *  x = log2(number of subnets in class C), 
+ * for example we want 4 subnets , how many bits should we use ?
+ * x = log2(4) = 2 
+ * Example 2 = we want 8 subnets , how many bits should we use ?
+ * x = log2(8) = 3
+ */
+int subnetClassC::getNumberOfbits() {
+    int bits = log2(this->numberOfHosts);
+    return bits;
 }
