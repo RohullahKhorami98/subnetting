@@ -19,6 +19,9 @@ public:
     subnetClassC(std::string subnet, std::string network, int numberOfHosts);
     std::vector<std::vector<std::string>> toBinary();
     std::vector<std::string> splitInput(std::string textToSplit);
+    std::vector<std::string> getSubnetBinary();
+    std::vector<std::string> getNetworkBinary();
+    void printVector(std::vector<std::string> vectorArray, std::string message);
 };
 
 #endif // CLASSC_H

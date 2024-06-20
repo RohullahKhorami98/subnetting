@@ -11,12 +11,9 @@ int main() {
     int numberOfHosts;
     std::cin >> subnet >> network >> numberOfHosts;
     subnetClassC classC(subnet, network, numberOfHosts);
-    std::vector<std::vector<std::string>> binary = classC.toBinary();
-    for (int i = 0; i < binary.size(); i++) {
-        for (int j = 0; j < binary[i].size(); j++) {
-            std::cout << binary[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
+    std::vector<std::string> networkbinray = classC.getNetworkBinary();
+    std::vector<std::string> subnetbinary = classC.getSubnetBinary();
+    classC.printVector(subnetbinary, "Subnet: ");
+    classC.printVector(networkbinray , "Network: ");
     return 0;
 }

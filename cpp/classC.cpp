@@ -33,10 +33,29 @@ std::vector<std::vector<std::string>> subnetClassC::toBinary(){
     std::string network = this->network;
     std::vector<std::string> subnetArray = splitInput(subnet);
     std::vector<std::string> networkArray = splitInput(network);
-
+    subnetArray.back() = "00000000";
+    networkArray.back() = "00000000";
     std::vector<std::vector<std::string>> binary;
     binary.push_back(subnetArray);
     binary.push_back(networkArray);
 
     return binary;
+}
+
+std::vector<std::string> subnetClassC::getSubnetBinary() {
+    std::vector <std::string> subnet = toBinary()[1];
+    return subnet;
+}
+
+std::vector<std::string> subnetClassC::getNetworkBinary() {
+    std::vector <std::string> network = toBinary()[0];
+    return network;
+}
+
+void subnetClassC::printVector(std::vector<std::string> vectorArray, std::string message) {
+    std::cout << message;
+    for(int i = 0; i < vectorArray.size(); i++){
+        std::cout << vectorArray[i]<< " ";
+    }
+    std::cout << std::endl;
 }
