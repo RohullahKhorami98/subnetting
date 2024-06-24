@@ -86,3 +86,31 @@ int subnetClassC::getNumberOfbits() {
     int bits = log2(this->numberOfHosts);
     return bits;
 }
+
+/**
+ * Get the combinations of the last bits
+ * for example if we have 4 subnets
+ * 00000000
+ * 00000001
+ * 00000010
+ * 00000011 
+ * We count the number of combinations using pow(2, bits)
+ * pow(2, 2) = 4
+ * pow(2, 3) = 8
+ * and created a vector with the last bits
+ * we loop from 0 to pow(2, bits) and change the ith value to binary
+ * and put it in the vector
+ */
+std::vector<std::string> subnetClassC::getCombinations() {
+    std::string combos[2] = {"1","0"};
+    int bits = getNumberOfbits();
+    std::vector<std::string> combinations;
+   int totalCombinations = pow(2, bits);
+    for (int i = 0; i < totalCombinations; ++i) {
+        std::bitset<8> binary(i);
+        std::string binaryString = binary.to_string(); 
+        std::string lastBits = binaryString.substr(8 - bits); 
+        combinations.push_back(lastBits);
+    }
+    return combinations;
+}

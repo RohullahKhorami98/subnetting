@@ -23,6 +23,7 @@ public:
     std::vector<std::string> getNetworkBinary();
     void printVector(std::vector<std::string> vectorArray, std::string message);
     int getNumberOfbits();
+    std::vector<std::string>getCombinations();
 };
 
 #endif // CLASSC_H
