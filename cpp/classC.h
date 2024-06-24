@@ -29,8 +29,10 @@ public:
     std::vector<std::string> getBroadCombinations();
     std::string getSubnetMask();
     std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::string>>> combineNetworkCombinations();
-    std::vector<std::string> getNetworkRanges();
-    std::vector<std::string> getBroadRanges();
+    void print2DVector(std::vector<std::vector<std::string>> vectorArray, std::string message);
+    std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::string>>>binaryToDecimal();
+    std::vector<std::vector<std::string>> useAbleIPs();
+    void printResult();
 };
 
 #endif // CLASSC_H

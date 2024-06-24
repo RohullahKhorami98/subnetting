@@ -23,9 +23,15 @@ int main() {
     std::vector<std::string> broadCombinations = classC.getBroadCombinations();
     classC.printVector(broadCombinations, "Broad Combinations: ");
     std::cout<<"Subnet Mask: " << classC.getSubnetMask()<<std::endl;
-    std::vector<std::string> networkRanges = classC.getNetworkRanges();
-    classC.printVector(networkRanges, "Network Ranges: ");
-    std::vector<std::string> broadRanges = classC.getBroadRanges();
-    classC.printVector(broadRanges, "Broad Ranges: ");
+    vector<vector<std::string>> firstRange = classC.combineNetworkCombinations().first;
+    vector<vector<std::string>> secondRange = classC.combineNetworkCombinations().second;
+    classC.print2DVector(firstRange, "first_range: ");
+    classC.print2DVector(secondRange, "second_range: ");
+    vector<vector<std::string>> firstInteger = classC.binaryToDecimal().first;
+    vector<vector<std::string>> secondInteger = classC.binaryToDecimal().second;
+    classC.print2DVector(firstInteger, "First Integer: ");
+    classC.print2DVector(secondInteger, "Second Integer: ");
+    classC.useAbleIPs();
+    classC.printResult();
     return 0;
 }

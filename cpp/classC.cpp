@@ -72,9 +72,22 @@ std::vector<std::string> subnetClassC::getNetworkBinary() {
  * Print the vector
  */
 void subnetClassC::printVector(std::vector<std::string> vectorArray, std::string message) {
-    std::cout << message;
+    std::cout << message <<std::endl;
     for(int i = 0; i < vectorArray.size(); i++){
         std::cout << vectorArray[i]<< " ";
+    }
+    std::cout << std::endl;
+}
+/**
+ * Print the 2D vector
+ */
+void subnetClassC::print2DVector(std::vector<std::vector<std::string>> vectorArray, std::string message) {
+    std::cout << message <<std::endl;
+    for(int i = 0; i < vectorArray.size(); i++){
+        for(int j = 0; j < vectorArray[i].size(); j++){
+            std::cout << vectorArray[i][j] << " ";
+        }
+        std::cout << std::endl;
     }
     std::cout << std::endl;
 }
@@ -127,7 +140,6 @@ std::string subnetClassC::getOnes(int ones) {
  * and put it in the vector
  */
 std::vector<std::string> subnetClassC::getNetworkCombinations() {
-    std::string combos[2] = {"1","0"};
     int bits = getNumberOfbits();
     std::vector<std::string> combinations;
    int totalCombinations = pow(2, bits);
@@ -154,10 +166,9 @@ std::vector<std::string> subnetClassC::getNetworkCombinations() {
  * and put it in the vector
  */
 std::vector<std::string> subnetClassC::getBroadCombinations() {
-    std::string combos[2] = {"1","0"};
     int bits = getNumberOfbits();
     std::vector<std::string> combinations;
-   int totalCombinations = pow(2, bits);
+    int totalCombinations = pow(2, bits);
     for (int i = 0; i < totalCombinations; ++i) {
         std::bitset<8> binary(i);
         std::string binaryString = binary.to_string(); 
@@ -202,7 +213,7 @@ std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::st
     std::vector<std::string> broadAddress = getNetworkBinary();
     std::vector<std::vector<std::string>> networkRanges;
     std::vector<std::vector<std::string>> broadRanges;
-    for(int i = 0; i<networkAddress.size(); i++){
+    for(int i = 0; i<networkCombinations.size(); i++){
         std::vector tempNetwork = networkAddress;
         tempNetwork.back() = networkCombinations[i];
         networkRanges.push_back(tempNetwork);
@@ -214,27 +225,62 @@ std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::st
 
     return std::make_pair(networkRanges, broadRanges);
 }
-
-std::vector<std::string> subnetClassC::getNetworkRanges() {
-    auto ranges = combineNetworkCombinations();
-    std::vector<std::vector<std::string>> networkRanges = ranges.first;
-    std::vector<std::string> allRanges;
-    for(const auto& vectorOfNetwork : networkRanges) {
-        for(int i =0 ; i < vectorOfNetwork.size(); i++){
-            allRanges.push_back(vectorOfNetwork[i]);
+/**
+ * Using pair and 2D vector to convert binary to Integer and return pair of 2D array
+ */
+std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::string>>> subnetClassC::binaryToDecimal() {
+   std::vector<std::vector<std::string>> networkRanges = combineNetworkCombinations().first;
+   std::vector<std::vector<std::string>> broadRanges = combineNetworkCombinations().second;
+   std::vector<std::vector<std::string>> networkInteger;
+   std::vector<std::vector<std::string>> boardInteger;
+   for(const auto& element: networkRanges){
+        std::vector<std::string>networkTemp;
+       for(const auto& element2 : element){
+            int temp = std::stoi(element2, nullptr, 2);
+            networkTemp.push_back(std::to_string(temp));
+       }
+       networkInteger.push_back(networkTemp);
+   }
+   for(const auto& element: broadRanges){
+        std::vector<std::string>boardTemp;
+       for(const auto& element2 : element){
+            int temp = std::stoi(element2, nullptr, 2);
+            boardTemp.push_back(std::to_string(temp));
+       }
+       boardInteger.push_back(boardTemp);
+   }
+   return std::make_pair(networkInteger,boardInteger);
+}
+/**
+ * Returning a 2D array where all useable ip address are included
+ *  
+ */
+std::vector<std::vector<std::string>> subnetClassC::useAbleIPs(){
+    std::vector<std::vector<std::string>> netWorkInteger = binaryToDecimal().first;
+    std::vector<std::vector<std::string>> broadCostInteger = binaryToDecimal().second;
+    std::vector<std::vector<std::string>> ipAddresses;
+    for(int i = 0; i<netWorkInteger.size(); i++){
+        int start = std::stoi(netWorkInteger[i].back());
+        int end = std::stoi(broadCostInteger[i].back());
+        std::cout<<"start: "<< start << " end: "<<end <<std::endl;
+        int count = start+1;
+        std::vector<std::string> tempVector = netWorkInteger[i];
+        while (count<end)
+        {
+            tempVector.back() = std::to_string(count);
+            ipAddresses.push_back(tempVector);
+            count++;
         }
     }
-    return allRanges;
+    return ipAddresses;
 }
 
-std::vector<std::string> subnetClassC::getBroadRanges() {
-    auto ranges = combineNetworkCombinations();
-    std::vector<std::vector<std::string>> broadRanges = ranges.second;
-    std::vector<std::string> allRanges;
-    for(const auto& vectorOfBroad : broadRanges) {
-        for(int i =0 ; i < vectorOfBroad.size(); i++){
-            allRanges.push_back(vectorOfBroad[i]);
-        }
-    }
-    return allRanges;
+/**
+ * Printing the last Result
+ * We print the useable ip address
+ */
+
+void subnetClassC::printResult(){
+    std::vector<std::vector<std::string>> ips = useAbleIPs();
+    std::cout<<ips.size();
 }
