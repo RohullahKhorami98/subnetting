@@ -23,7 +23,14 @@ public:
     std::vector<std::string> getNetworkBinary();
     void printVector(std::vector<std::string> vectorArray, std::string message);
     int getNumberOfbits();
-    std::vector<std::string>getCombinations();
+    std::vector<std::string>getNetworkCombinations();
+    std::string getZeros(int zeros);
+    std::string getOnes(int ones);
+    std::vector<std::string> getBroadCombinations();
+    std::string getSubnetMask();
+    std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::string>>> combineNetworkCombinations();
+    std::vector<std::string> getNetworkRanges();
+    std::vector<std::string> getBroadRanges();
 };
 
 #endif // CLASSC_H
