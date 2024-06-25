@@ -31,7 +31,7 @@ public:
     std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::string>>> combineNetworkCombinations();
     void print2DVector(std::vector<std::vector<std::string>> vectorArray, std::string message);
     std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::string>>>binaryToDecimal();
-    std::vector<std::vector<std::string>> useAbleIPs();
+    std::vector<std::vector<std::vector<std::string>>> useAbleIPs();
     void printResult();
 };
 

@@ -26,6 +26,8 @@ class classCs:
         networklist = self.network_address.split(".")
         subbin = [bin(int(x))[2:].zfill(8) for x in sublist]
         networkbin = [bin(int(y))[2:].zfill(8) for y in networklist]
+        subbin[-1] = '00000000'
+        networkbin[-1] = '00000000'
         return subbin, networkbin
     #### NUMBER OF SUBNETS ####
     def calculate_number_of_subnets(self):

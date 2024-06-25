@@ -20,7 +20,10 @@ if __name__ == "__main__":
        print("SUBNETTING Class B")
     elif args.SubnetClass == 'C':
         column_name = "Subnet "
-        subnet, network_address, num_subnets ="255.255.255.0","192.168.1.0", 8
+        subnet =input("Enter the subnet: ")
+        network_address = input("Enter the network address: ")
+        num_subnets = int(input("Enter the number of subnets: "))
+
         s = C.classCs(subnet, network_address,num_subnets)
         usable_ranges = s.merge_useable_ranges()
         table_header = [column_name+str(x) for x in range(1, len(usable_ranges)+1)]

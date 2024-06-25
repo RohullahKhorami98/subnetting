@@ -255,22 +255,24 @@ std::pair<std::vector<std::vector<std::string>>, std::vector<std::vector<std::st
  * Returning a 2D array where all useable ip address are included
  *  
  */
-std::vector<std::vector<std::string>> subnetClassC::useAbleIPs(){
+std::vector<std::vector<std::vector<std::string>>> subnetClassC::useAbleIPs(){
     std::vector<std::vector<std::string>> netWorkInteger = binaryToDecimal().first;
     std::vector<std::vector<std::string>> broadCostInteger = binaryToDecimal().second;
-    std::vector<std::vector<std::string>> ipAddresses;
+    std::vector<std::vector<std::vector<std::string>>> ipAddresses;
     for(int i = 0; i<netWorkInteger.size(); i++){
         int start = std::stoi(netWorkInteger[i].back());
         int end = std::stoi(broadCostInteger[i].back());
-        std::cout<<"start: "<< start << " end: "<<end <<std::endl;
+        //std::cout<<"start: "<< start << " end: "<<end <<std::endl;
         int count = start+1;
         std::vector<std::string> tempVector = netWorkInteger[i];
+        std::vector<std::vector<std::string>> tempVector2;
         while (count<end)
         {
             tempVector.back() = std::to_string(count);
-            ipAddresses.push_back(tempVector);
+            tempVector2.push_back(tempVector);
             count++;
         }
+        ipAddresses.push_back(tempVector2);
     }
     return ipAddresses;
 }
@@ -281,6 +283,23 @@ std::vector<std::vector<std::string>> subnetClassC::useAbleIPs(){
  */
 
 void subnetClassC::printResult(){
-    std::vector<std::vector<std::string>> ips = useAbleIPs();
-    std::cout<<ips.size();
+    int count = 1;
+    std::vector<std::vector<std::vector<std::string>>> ips = useAbleIPs();
+    for(const auto& element: ips){
+        std::cout << "------------------------------------------------------" <<std::endl;
+        std::cout << "------------------------------------------------------" <<std::endl;
+        std::cout << "------------------- Subnet Number: "<< count << " -----------------"<<std::endl;
+        std::cout << "------------------------------------------------------" <<std::endl;
+        std::cout << "------------------------------------------------------" <<std::endl;
+        for(const auto& element2 : element){
+            for(int j = 0; j<element2.size(); j++){
+                std::cout << element2[j];
+                if(j<element2.size()-1){
+                    std::cout << ".";
+                }
+            }
+            std::cout << std::endl;
+        }
+        count++;
+    }
 }
